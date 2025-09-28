@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cneon2xib1psy"]
+
+[ext_resource type="PackedScene" uid="uid://c85vtabajnibb" path="res://scenes/enemy.tscn" id="1_fi5i3"]
+[ext_resource type="Texture2D" uid="uid://0ggfek4jbme3" path="res://sprites/objects/enemyBlue2.png" id="2_fi5i3"]
+
+[node name="Enemy2" groups=["enemies_2"] instance=ExtResource("1_fi5i3")]
+enemy_type = "fighter"
+speed_move = 200.0
+hp = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_fi5i3")
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(0, -42, 53, -14, 23, 42, -22, 42, -53, -13)

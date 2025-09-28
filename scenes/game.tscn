@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://kvyco7kjhlej"]
+
+[ext_resource type="Script" uid="uid://3xh52ovf7qxn" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://b6wpc2e3gn66m" path="res://scenes/ui.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b62dbb2pr3oja" path="res://scenes/player.tscn" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://dviuomv5jcjru" path="res://sprites/effects/purple.png" id="3_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://dlryjobkokhp" path="res://sprites/icons/star_gold.png" id="4_iywne"]
+[ext_resource type="AudioStream" uid="uid://2dcwpxlcjxmy" path="res://audios/sound effects/laser.ogg" id="5_gee14"]
+[ext_resource type="AudioStream" uid="uid://bvqthqeppaea1" path="res://audios/sound effects/hit.mp3" id="6_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://dofgnutrfq7r4" path="res://audios/sound effects/explode.mp3" id="7_vtaks"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p57ef"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(270, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 750.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.3
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_uwrxv")
+
+[node name="UI" parent="." instance=ExtResource("2_lnu2h")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 960)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_repeat = 2
+texture = ExtResource("3_lbhrr")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 540, 960)
+
+[node name="Particles_star" type="GPUParticles2D" parent="."]
+position = Vector2(270, -30)
+emitting = false
+texture = ExtResource("4_iywne")
+process_material = SubResource("ParticleProcessMaterial_p57ef")
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Sound_laser" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("5_gee14")
+
+[node name="Sound_hit" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("6_0tnpc")
+
+[node name="Sound_explode" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("7_vtaks")
+
+[node name="Pos_playerSpawn" type="Marker2D" parent="."]
+position = Vector2(280, 860)
+
+[node name="Containers" type="Node" parent="."]
+
+[node name="Container_lasers" type="Node2D" parent="Containers"]
+
+[node name="Container_enemies" type="Node2D" parent="Containers"]
+
+[node name="Container_bombs" type="Node2D" parent="Containers"]
+
+[node name="Container_explosions" type="Node2D" parent="Containers"]
+
+[node name="Timer_enemySpawn" type="Timer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(281, 861)
+
+[connection signal="timeout" from="Timer_enemySpawn" to="." method="_on_timer_enemy_spawn_timeout"]

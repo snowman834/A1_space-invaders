@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cve5xj7vnmgeb"]
+
+[ext_resource type="Script" uid="uid://cixl67wq4vgsr" path="res://scripts/bomb.gd" id="1_vpdcx"]
+[ext_resource type="Texture2D" uid="uid://imgdveb5fiui" path="res://sprites/objects/ufoRed.png" id="2_j15uc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_84slv"]
+radius = 6.0
+
+[node name="Bomb" type="Area2D" groups=["bombs"]]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_vpdcx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_j15uc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_84slv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.6, 0.6)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

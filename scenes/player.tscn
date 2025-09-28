@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b62dbb2pr3oja"]
+
+[ext_resource type="Texture2D" uid="uid://6dqdvubyl815" path="res://sprites/objects/playerShip1_green.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bbpdvg8p3763t" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://34ybeqyencn1" path="res://sprites/sheets/shield1.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://b1blb8djnuygj" path="res://sprites/sheets/shield2.png" id="4_qlg0r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tuyoq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_dqkch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qlg0r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_g2els")
+speed_move = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3vyb7")
+
+[node name="Anim_shield" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tuyoq")
+frame_progress = 0.893352
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-45, 23, -48, -6, -36, 2, -11, -12, -7, -37, 8, -37, 11, -12, 37, 2, 48, -6, 45, 25, 13, 28, 6, 37, -7, 37, -13, 27)
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, -50)

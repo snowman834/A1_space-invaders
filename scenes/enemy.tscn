@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c85vtabajnibb"]
+
+[ext_resource type="Script" uid="uid://dgqw8g15splta" path="res://scripts/enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://kvmkl2xyyo02" path="res://sprites/objects/enemyBlack1.png" id="1_7k104"]
+
+[node name="Enemy" type="Area2D" groups=["enemies", "enemies_1"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4gyqm")
+speed_move = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7k104")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-30, -42, 29, -42, 46, -14, 24, 41, -24, 41, -46, -16)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -55)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

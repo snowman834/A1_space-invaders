@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6108xpv33ouv"]
+
+[ext_resource type="Script" uid="uid://dpxfr4pnfm3c2" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_toqtt"]
+font_size = 64
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahhtf")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_toqtt")
+horizontal_alignment = 1
